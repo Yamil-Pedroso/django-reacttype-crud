@@ -1,0 +1,16 @@
+# Python virtual environment
+myvenv/
+venv/
+env/
+.venv/
+.env/
+env.bak/
+env_backup/
+
+# Node.js dependencies
+node_modules/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo

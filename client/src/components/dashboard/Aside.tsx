@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import { Container, AsideWrapper, UlMenuWrapper, UlLogout, ContentMenuBox } from "./styles";
 import { MdDashboard, MdEqualizer, MdPeople, MdDescription, MdSettings } from "react-icons/md";
-
+import { toast } from "react-hot-toast";
 interface AsideProps {
     title: string
     icon: JSX.Element
@@ -31,6 +32,35 @@ const asideProps: AsideProps[] = [
 ]
 
 const Aside: React.FC = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    useEffect(() => {
+     const isAuthenticated = localStorage.getItem('inLoggedIn')
+        if( isAuthenticated === 'true' ) {
+            setIsLoggedIn(true)
+        }
+
+    }
+    , [])
+
+
+    const handleLogout = () => {
+        localStorage.setItem('inLoggedIn', 'false')
+        return <Navigate to="/" /> && toast.success(
+            'Logout successful',
+            {
+                duration: 3000,
+                position: 'top-right',
+                style: {
+                padding: '16px',
+                background: '#2a2a2a',
+                color: '#fff',
+                },
+            }
+        )
+
+    }
+
   return (
     <>
         <Container>
@@ -77,8 +107,14 @@ const Aside: React.FC = () => {
   
               <UlLogout>
                     <div>
-                       <Link to="/">
-                         <p>Logout</p>
+                       <Link
+                         onClick={
+                            handleLogout
+                        }
+                        to="/">
+                         <p
+                            
+                            >Logout</p>
                         </Link>
                     </div>
               </UlLogout>

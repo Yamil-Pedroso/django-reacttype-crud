@@ -103,7 +103,7 @@ const TasksFormPage = () => {
                   },
                }
               )
-            navigate('/')
+            navigate('/profile')
           }
         }}
         >  Delete

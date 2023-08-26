@@ -3,7 +3,7 @@ import LoginForm from "../components/authentication/login/LoginForm"
 const LoginFormPage = () => {
   return (
     <div>
-        <LoginForm />
+        <LoginForm setShowDashboard={() => {}} />
     </div>
   )
 }

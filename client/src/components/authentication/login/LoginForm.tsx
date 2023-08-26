@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { loginUser } from '../../../api/auth';
 import { toast } from 'react-hot-toast';
+import { LoginContainer, BTN } from './styles';
+import { Link } from 'react-router-dom';
 
-const LoginForm = () => {
+const LoginForm = ({ setShowDashboard }: { setShowDashboard: React.Dispatch<React.SetStateAction<boolean>> }) => {
+
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -39,37 +42,46 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-        <h1>Login</h1>
-        <p>{error}</p>
-        <label htmlFor="username">Username</label>
-        <input
-            type="text"
-            name="username"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="email">Email</label>
-        <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" onClick={handleLogin}>
-            Login
-        </button>
-    </form>
+    <>
+      <LoginContainer>
+        <BTN>
+           <Link 
+             onClick={() => setShowDashboard(true)}
+             to="/profile">ENTER TO YOUR PROFILE</Link>
+        </BTN>
+      </LoginContainer>
+      {/*<form onSubmit={(e) => e.preventDefault()}>
+          <h1>Login</h1>
+          <p>{error}</p>
+          <label htmlFor="username">Username</label>
+          <input
+              type="text"
+              name="username"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="email">Email</label>
+          <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+          />
+          <label htmlFor="password">Password</label>
+          <input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit" onClick={handleLogin}>
+              Login
+          </button>
+  </form>*/}
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import CalendarComp from '../components/calendar/Calendar'
 import images from '../assets/images'
 import { getTasks } from '../api/tasks.api'
 import { getUserById } from '../api/auth'
+import Aside from '../components/dashboard/Aside'
 
 interface ITask {
   id: string
@@ -123,6 +124,7 @@ const HomePage = () => {
     <>
       <Metadata title="Dashboard" />
       <Container>
+      <Aside />
         <RightContainer>
           <div>
             <h2 style={{ color: "#2a2a2a", marginTop: "2rem" }}> <span style={{color: "#68cad7"}}>{user?.username}</span> <span style={{color: "#7f8080'"}}>|</span> Profile</h2>

@@ -22,10 +22,11 @@ interface ITask {
 }
 
 interface IUser {
-  id: number;
-  username: string;
-  last_name: string;
-  profile_picture: string;
+  id: number
+  username: string
+  last_name: string
+  profile_picture: string
+  isLogged: boolean
 }
 
 // Styled Components
@@ -63,11 +64,11 @@ const TaskDoneWrapper = styled.div`
   background-color: #ffffff;
   overflow: hidden;
 
-   div {
-     h3  {
-         color: #68cad7;
-     }
-   }
+  div {
+    h3 {
+      color: #68cad7;
+    }
+  }
 
   img {
     width: 22rem;
@@ -87,19 +88,34 @@ const TaskDoneWrapperTwo = styled.div`
   background-color: #ffffff;
   overflow: hidden;
 
-   div {
-     h3  {
-         color: #68cad7;
-         margin-left: 3rem;
-         margin-top: 1rem;
-     }
-   }
+  div {
+    h3 {
+      color: #68cad7;
+      margin-left: 3rem;
+      margin-top: 1rem;
+    }
+  }
 `
 
-
-const HomePage = () => {
+const HomePage = ({ setShowDashboard }: any) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState<IUser | null>(null)
   const [tasks, setTasks] = useState<ITask[]>([])
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('isLoggedIn') === 'true'
+    if (!loggedIn) {
+      setShowDashboard(true)
+    }
+  }, [setShowDashboard])
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('isLoggedIn') === 'true'
+    setIsLoggedIn(loggedIn)
+    if (loggedIn) {
+      setShowDashboard(true)
+    }
+  }, [setShowDashboard])
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -119,50 +135,65 @@ const HomePage = () => {
     fetchUser()
   }, [])
 
-
   return (
     <>
       <Metadata title="Dashboard" />
       <Container>
-      <Aside />
-        <RightContainer>
-          <div>
-            <h2 style={{ color: "#2a2a2a", marginTop: "2rem" }}> <span style={{color: "#68cad7"}}>{user?.username}</span> <span style={{color: "#7f8080'"}}>|</span> Profile</h2>
-            <Search />
-            <MyTasks />
-          </div>
-          <div>
-          <TaskDoneWrapper>
+        <>
+          <Aside />
+          <RightContainer>
             <div>
-              <img src={images.taskDone} alt="task done" />
+              <h2 style={{ color: '#2a2a2a', marginTop: '2rem' }}>
+                {' '}
+                <span style={{ color: '#68cad7' }}>{user?.username}</span>{' '}
+                <span style={{ color: "#7f8080'" }}>|</span> Profile
+              </h2>
+              <Search />
+              <MyTasks />
             </div>
-          </TaskDoneWrapper>
-          <TaskDoneWrapperTwo>
-            <div style={{ display: "flex", flexDirection: "column", marginTop: "1rem"}}>
-              <h2 style={{color: "#313131", fontWeight: "bold", textAlign: "center"}}>My Tasks</h2>
-              <h3>
-                Not started:<span style={{color: "#606060"}}> {tasks.length}
-                </span>
-              </h3>
-              <h3>
-                In progress:<span style={{color: "#606060"}}> 1
-                </span>
-              </h3>
-              <h3
-                
-              >
-                done:<span style={{color: "#606060"}}> 2
-                </span>
-              </h3>
+            <div>
+              <TaskDoneWrapper>
+                <div>
+                  <img src={images.taskDone} alt="task done" />
+                </div>
+              </TaskDoneWrapper>
+              <TaskDoneWrapperTwo>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    marginTop: '1rem',
+                  }}
+                >
+                  <h2
+                    style={{
+                      color: '#313131',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}
+                  >
+                    My Tasks
+                  </h2>
+                  <h3>
+                    Not started:
+                    <span style={{ color: '#606060' }}> {tasks.length}</span>
+                  </h3>
+                  <h3>
+                    In progress:<span style={{ color: '#606060' }}> 1</span>
+                  </h3>
+                  <h3>
+                    done:<span style={{ color: '#606060' }}> 2</span>
+                  </h3>
+                </div>
+              </TaskDoneWrapperTwo>
             </div>
-          </TaskDoneWrapperTwo>
-          </div>
-        </RightContainer>
-        <LeftContainer>
-          <UserItems />
-          <TimeTracker />
-          <CalendarComp />
-        </LeftContainer>
+          </RightContainer>
+          <LeftContainer>
+            <UserItems />
+            <TimeTracker />
+            <CalendarComp />
+          </LeftContainer>
+        </>
       </Container>
     </>
   )

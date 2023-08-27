@@ -1,54 +1,60 @@
-import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { LoginSimulateContainer, FormWrapper, Form, LeftBoxLogin, BTNWrapper, BTNlogin, SignUpWrapper } from './styles'
-import {  toast } from 'react-hot-toast';
+import { useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import {
+  LoginSimulateContainer,
+  FormWrapper,
+  Form,
+  LeftBoxLogin,
+  BTNWrapper,
+  BTNlogin,
+  SignUpWrapper,
+} from './styles'
+import { toast } from 'react-hot-toast'
 import images from '../../../assets/images'
 
-const LoginFormSimulate = ({ setShowDashboard }: { setShowDashboard: React.Dispatch<React.SetStateAction<boolean>> }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const LoginFormSimulate = ({
+  setShowDashboard,
+}: {
+  setShowDashboard: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleLogin = () => {
-    localStorage.setItem('inLoggedIn', 'true');
-    setIsLoggedIn(true);
-    setShowDashboard(true);
-  };
+    localStorage.setItem('isLoggedIn', 'true')
+    setIsLoggedIn(true)
+    setShowDashboard(true)
+  }
 
   const handleSubmit = (e: any) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!name || !email || !password) {
-        toast.error(
-            'Please fill in all fields',
-            {
-                duration: 3000,
-                position: 'top-center',
-                style: {
-                padding: '16px',
-                background: '#2a2a2a',
-                color: '#fff',
-                },
-            }
-        )
-      return;
+      toast.error('Please fill in all fields', {
+        duration: 3000,
+        position: 'top-center',
+        style: {
+          padding: '16px',
+          background: '#2a2a2a',
+          color: '#fff',
+        },
+      })
+      return
     }
 
-    handleLogin() 
-    toast.success(
-        'Login successful',
-        {
-            duration: 3000,
-            position: 'top-right',
-            style: {
-            padding: '16px',
-            background: '#2a2a2a',
-            color: '#fff',
-            },
-        }
-    )
-  };
+    handleLogin()
+    toast.success('Login successful', {
+      duration: 3000,
+      position: 'top-right',
+      style: {
+        padding: '16px',
+        background: '#2a2a2a',
+        color: '#fff',
+      },
+    })
+  }
 
   return (
     <LoginSimulateContainer>
@@ -58,18 +64,20 @@ const LoginFormSimulate = ({ setShowDashboard }: { setShowDashboard: React.Dispa
         </>
       ) : (
         <>
-         <FormWrapper>
-           <LeftBoxLogin>
-             <div>
-               <h2>HELLO USER.</h2>
-               <p className='welcome-back'>Welcome back! Please login to your account.</p>
+          <FormWrapper>
+            <LeftBoxLogin>
+              <div>
+                <h2>HELLO USER.</h2>
+                <p className="welcome-back">
+                  Welcome back! Please login to your account.
+                </p>
                 <SignUpWrapper>
-                  <p>Don't have an account?</p><button>Sign up</button>
+                  <p>Don't have an account?</p>
+                  <button>Sign up</button>
                 </SignUpWrapper>
-             </div>
-           </LeftBoxLogin>
-          <Form onSubmit={handleSubmit}>
-           
+              </div>
+            </LeftBoxLogin>
+            <Form onSubmit={handleSubmit}>
               <img src={images.login} alt="login" width="140" />
               <label htmlFor="name">Name:</label>
               <input
@@ -93,18 +101,15 @@ const LoginFormSimulate = ({ setShowDashboard }: { setShowDashboard: React.Dispa
                 onChange={(e) => setPassword(e.target.value)}
               />
               <BTNWrapper>
-                <BTNlogin
-                   type="submit">Login
-                </BTNlogin>
+                <BTNlogin type="submit">Login</BTNlogin>
                 <p>Forgot Password?</p>
               </BTNWrapper>
-            
-          </Form>
-        </FormWrapper>
+            </Form>
+          </FormWrapper>
         </>
       )}
     </LoginSimulateContainer>
-  );
-};
+  )
+}
 
-export default LoginFormSimulate;
+export default LoginFormSimulate

@@ -1,44 +1,44 @@
-import { useNavigate } from 'react-router-dom';
-import { CreateTaskContainer } from './styles';
-import { deleteTask } from '../../api/tasks.api';
-import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom'
+import { CreateTaskContainer } from './styles'
+import { deleteTask } from '../../api/tasks.api'
+import { toast } from 'react-hot-toast'
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import './styles.css'
 
 interface ITasks {
-  id: string;
-  title: string;
-  description: string;
-  done: boolean;
-  onDelete: () => void;
-  backgroundColor: number;
+  id: string
+  title: string
+  description: string
+  done: boolean
+  onDelete: () => void
+  backgroundColor: number
 }
 
 const TaskCard = (props: ITasks) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleDelete = async () => {
-    const accepted = window.confirm('Are you sure you want to delete this task?');
+    const accepted = window.confirm(
+      'Are you sure you want to delete this task?',
+    )
     if (accepted) {
-      await deleteTask(props.id);
-      toast.success(
-        'Task deleted',
-        {
-          duration: 3000,
-          position: 'top-right',
-          style: {
-            padding: '16px',
-            background: '#2a2a2a',
-            color: '#fff',
-          },
-        }
-      );
-      props.onDelete(); 
+      await deleteTask(props.id)
+      toast.success('Task deleted', {
+        duration: 3000,
+        position: 'top-right',
+        style: {
+          padding: '16px',
+          background: '#2a2a2a',
+          color: '#fff',
+        },
+      })
+      props.onDelete()
     }
-  };
+  }
 
   return (
-    <CreateTaskContainer 
-      className='task-card'
+    <CreateTaskContainer
+      className="task-card"
       backgroundColor={props.backgroundColor}
     >
       <div>
@@ -53,12 +53,20 @@ const TaskCard = (props: ITasks) => {
         </p>
       </div>
       <div>
-        <button onClick={() => navigate(`/tasks/${props.id}`)}>Edit</button>
+        <AiFillEdit
+          onClick={() => navigate(`/tasks/${props.id}`)}
+          size={20}
+          style={{ cursor: 'pointer' }}
+        />
 
-        <button onClick={handleDelete}>Delete</button>
+        <AiFillDelete
+          onClick={handleDelete}
+          size={20}
+          style={{ cursor: 'pointer' }}
+        />
       </div>
     </CreateTaskContainer>
-  );
-};
+  )
+}
 
-export default TaskCard;
+export default TaskCard

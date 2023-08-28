@@ -1,16 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from 'react-router-dom'
-import Aside from './components/dashboard/Aside'
 import HomePage from './pages/HomePage'
-import LoginFormPage from './pages/LoginFormPage'
-import LoginForm from './components/authentication/login/LoginForm'
 import LoginFormSimulate from './components/authentication/login/LoginFormSimulate'
-import TasksPage from './pages/TasksPage'
 import AnaliticsPage from './pages/AnaliticsPage'
 import TeamsPage from './pages/TeamsPage'
 import DocumentsPage from './pages/DocumentsPage'
@@ -25,7 +21,18 @@ const Container = styled.div`
   width: 100%;
 `
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem('isLoggedIn') === 'true',
+  )
   const [showDashboard, setShowDashboard] = useState(true)
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('isLoggedIn') === 'true'
+    setIsLoggedIn(loggedIn)
+    if (loggedIn) {
+      setShowDashboard(true)
+    }
+  }, [setShowDashboard])
 
   return (
     <Router>
@@ -35,7 +42,11 @@ const App = () => {
             <Route
               path="/"
               element={
-                <LoginFormSimulate setShowDashboard={setShowDashboard} />
+                !isLoggedIn ? (
+                  <Navigate to="/" />
+                ) : (
+                  <LoginFormSimulate setShowDashboard={setShowDashboard} />
+                )
               }
             />
             <Route

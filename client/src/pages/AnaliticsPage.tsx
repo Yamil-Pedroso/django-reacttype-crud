@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Metadata from '../components/metadata/Metadata'
+import Aside from '../components/dashboard/Aside'
 
 // Styled Components
 const Container = styled.div`
@@ -14,9 +15,10 @@ const AnaliticsPage = () => {
   return (
     <>
       <Metadata title="Analitics" />
-     <Container>
-      <h1>AnaliticsPage</h1>
-     </Container>
+      <Aside />
+      <Container>
+        <h1>AnaliticsPage</h1>
+      </Container>
     </>
   )
 }

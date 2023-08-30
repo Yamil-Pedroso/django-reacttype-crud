@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getUsers } from "../../api/auth"
 import UserCard from "./UserCard"
+import Aside from "../dashboard/Aside"
 
 interface IUsers {
     id: string

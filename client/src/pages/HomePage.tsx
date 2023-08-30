@@ -9,7 +9,6 @@ import CalendarComp from '../components/calendar/Calendar'
 import images from '../assets/images'
 import { getTasks } from '../api/tasks.api'
 import { getUserById } from '../api/auth'
-import Aside from '../components/dashboard/Aside'
 
 interface ITask {
   id: string
@@ -96,7 +95,8 @@ const TaskDoneWrapperTwo = styled.div`
     }
   }
 `
-
+ 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const HomePage = ({ setShowDashboard }: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState<IUser | null>(null)
@@ -104,7 +104,7 @@ const HomePage = ({ setShowDashboard }: any) => {
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('isLoggedIn') === 'true'
-    if (!loggedIn) {
+    if (loggedIn) {
       setShowDashboard(true)
     }
   }, [setShowDashboard])
@@ -140,7 +140,6 @@ const HomePage = ({ setShowDashboard }: any) => {
       <Metadata title="Dashboard" />
       <Container>
         <>
-          <Aside />
           <RightContainer>
             <div>
               <h2 style={{ color: '#2a2a2a', marginTop: '2rem' }}>

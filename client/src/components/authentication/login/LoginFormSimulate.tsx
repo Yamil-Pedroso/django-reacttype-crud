@@ -12,22 +12,21 @@ import {
 import { toast } from 'react-hot-toast'
 import images from '../../../assets/images'
 
-const LoginFormSimulate = ({
-  setShowDashboard,
-}: {
-  setShowDashboard: React.Dispatch<React.SetStateAction<boolean>>
-}) => {
+const LoginFormSimulate = (
+   { setShowDashboard, }: { setShowDashboard: React.Dispatch<React.SetStateAction<boolean>> }
+   ) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleLogin = () => {
-    localStorage.setItem('isLoggedIn', 'true')
     setIsLoggedIn(true)
     setShowDashboard(true)
+    localStorage.setItem('isLoggedIn', 'true')
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = (e: any) => {
     e.preventDefault()
 

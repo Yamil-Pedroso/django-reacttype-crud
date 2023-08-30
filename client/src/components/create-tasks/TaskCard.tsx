@@ -20,6 +20,7 @@ const TaskCard = (props: ITasks) => {
   const handleDelete = async () => {
     const accepted = window.confirm(
       'Are you sure you want to delete this task?',
+      
     )
     if (accepted) {
       await deleteTask(props.id)

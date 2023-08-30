@@ -3,8 +3,7 @@ import Metadata from '../components/metadata/Metadata'
 
 // Styled Components
 const Container = styled.div`
-  padding: 5rem;
-
+  display: flex;
   h1 {
     color: #2f2f2f;
   }

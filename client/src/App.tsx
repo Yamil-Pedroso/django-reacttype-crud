@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom'
+import Aside from './components/dashboard/Aside'
 import HomePage from './pages/HomePage'
 import LoginFormSimulate from './components/authentication/login/LoginFormSimulate'
 import AnaliticsPage from './pages/AnaliticsPage'
@@ -21,10 +22,8 @@ const Container = styled.div`
   width: 100%;
 `
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem('isLoggedIn') === 'true',
-  )
-  const [showDashboard, setShowDashboard] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [showDashboard, setShowDashboard] = useState(false)
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('isLoggedIn') === 'true'
@@ -37,26 +36,25 @@ const App = () => {
   return (
     <Router>
       <Container>
+        <Aside setShowDashboard={setShowDashboard} />
         <div style={{ width: '100%' }}>
           <Routes>
             <Route
               path="/"
               element={
                 !isLoggedIn ? (
-                  <Navigate to="/" />
-                ) : (
-                  <LoginFormSimulate setShowDashboard={setShowDashboard} />
+                  <LoginFormSimulate 
+                    setShowDashboard={setShowDashboard} />
+                  ) : (
+                  <Navigate to="/profile" />
                 )
               }
             />
             <Route
               path="/profile"
               element={
-                showDashboard ? (
-                  <HomePage setShowDashboard={setShowDashboard} />
-                ) : (
-                  <Navigate to="/" />
-                )
+                <HomePage
+                setShowDashboard={setShowDashboard} />
               }
             />
             {/*<Route path="/tasks" element={<TasksPage />} />*/}

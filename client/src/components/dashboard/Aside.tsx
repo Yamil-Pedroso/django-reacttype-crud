@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Container,
   AsideWrapper,
@@ -43,32 +43,27 @@ const asideProps: AsideProps[] = [
   },
 ]
 
-const Aside: React.FC = () => {
+const Aside = ({ setShowDashboard, }: { setShowDashboard: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  useEffect(() => {
-    const isAuthenticated = localStorage.getItem('inLoggedIn')
-    if (isAuthenticated === 'true') {
-      setIsLoggedIn(true)
-    }
-  }, [])
-
+  
   const handleLogout = () => {
-    localStorage.removeItem('inLoggedIn')
-    return (
-      <Navigate to="/" /> &&
-      toast.success('Logout successful', {
-        duration: 3000,
-        position: 'top-right',
-        style: {
-          padding: '16px',
-          background: '#2a2a2a',
-          color: '#fff',
-        },
-      })
-    )
+    setIsLoggedIn(false)
+    setShowDashboard(false)
+    localStorage.removeItem('isLoggedIn')
+
+    toast.success('Logout successful', {
+      duration: 3000,
+      position: 'top-right',
+      style: {
+        padding: '16px',
+        background: '#2a2a2a',
+        color: '#fff',
+      },
+    })
   }
 
+    
   return (
     <>
       <Container>
@@ -81,9 +76,9 @@ const Aside: React.FC = () => {
                   <div>
                     <span>{item.icon}</span>
                     {item.title === 'Profile' ? (
-                      <div>
+                      <Link to="/profile">
                         <p>{item.title}</p>
-                      </div>
+                      </Link>
                     ) : item.title === 'Analitics' ? (
                       <Link to="/analitics">
                         <p>{item.title}</p>
@@ -111,9 +106,11 @@ const Aside: React.FC = () => {
 
           <UlLogout>
             <div>
-              <Link onClick={handleLogout} to="/">
-                <p>Logout</p>
-              </Link>
+              {!isLoggedIn && (
+                <Link to="/" onClick={handleLogout} style={{ cursor: "pointer"}}>
+                  <p>Logout</p>
+                </Link>
+              )}
             </div>
           </UlLogout>
         </AsideWrapper>

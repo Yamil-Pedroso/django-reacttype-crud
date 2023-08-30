@@ -4,7 +4,8 @@ import UserList from '../components/user/UserList'
 
 // Styled Components
 const Container = styled.div`
-  padding: 5rem;
+  display: flex;
+ 
 
   h1 {
     color: #2f2f2f;
